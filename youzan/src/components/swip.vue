@@ -6,9 +6,10 @@
                 <img class="goods-main-photo fadeIn" :src="list.img">
             </a>
             </div>
-            <div class="swiper-pagination"></div>
+            
             <!-- <div class="swiper-scrollbar"></div> -->
         </div>
+        <div class="swiper-pagination"></div>
     </div>
 </template>
 
@@ -44,6 +45,9 @@
                 el: '.swiper-pagination',
                 },
                 loop: true, 
+                autoplay: {
+                    delay: 3000,
+                },
             });
         }
     }
