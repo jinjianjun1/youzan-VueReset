@@ -1,5 +1,6 @@
 let url ={
-    hotLists:'/index/hotLists'
+    hotLists:'/index/hotLists',
+    banner:'/index/banner'
 }
 //开发环境和真实环境切换
 let host = 'http://rap2api.taobao.org/app/mock/7058'
