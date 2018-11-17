@@ -694,7 +694,8 @@ html {
 .with-bottom-nav,
 .with-bottom-nav .class-nav {
   padding-top: 45px;
-  padding-bottom: 50px
+  padding-bottom: 50px;
+  z-index: 1;
 }
 
 .with-bottom-nav .class-nav {
