@@ -55,6 +55,8 @@ new Vue({
         getbanner(){
             axios.get(url.banner).then(res=>{
                 this.bannerlists=res.data.lists
+            }).catch(err=>{
+                console.log(err)
             })
         }
     }

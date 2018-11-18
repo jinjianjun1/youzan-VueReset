@@ -1077,7 +1077,9 @@ only screen and (min-device-pixel-ratio:1.5) {
 }
 
 .keywords-list {
-  padding-bottom: 20px
+  padding-bottom: 20px;
+  /* display: flex;
+  flex-direction: row; */
 }
 
 .keywords-list li {
@@ -1085,7 +1087,7 @@ only screen and (min-device-pixel-ratio:1.5) {
   position: relative;
   margin-right: 8px;
   margin-bottom: 8px;
-  font-size: 12px
+  font-size: 12px;
 }
 
 .keywords-list li:before {
@@ -1106,7 +1108,7 @@ only screen and (min-device-pixel-ratio:1.5) {
 }
 
 .keywords-list li a {
-  display: block;
+  display: inline-block;
   padding: 6px 15px
 }
 

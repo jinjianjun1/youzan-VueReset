@@ -50,6 +50,9 @@ new Vue({
               }).catch(err=>{
                   console.log(err)
               })
+         },
+         searchgoods(list){
+            location.href=`search.html?id=${list.id}&keyword=${list.name}`
          }
     },
     filters: {

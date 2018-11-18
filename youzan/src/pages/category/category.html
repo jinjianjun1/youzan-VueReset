@@ -134,7 +134,8 @@
             <h3 class="category-title">热门品牌 </h3>
             <ul class="category-content">
               <li class="category-item js-category-item" data-item-id="85" :data-item-name="list.name"
-              v-for="(list,index) in subData.brandList">
+              v-for="(list,index) in subData.brandList"
+              @click="searchgoods(list)">
                 <img :src="list.img" :alt="list.name" class="category-img">
                 <span class="category-item-name">
                 {{list.name}}        </span>
@@ -144,7 +145,8 @@
             <h3 class="category-title"> 热门分类  </h3>
             <ul class="category-content">
               <li class="category-item js-category-item" data-item-id="list.id" :data-item-name="list.name"
-              v-for="(list,index) in subData.categoryList">
+              v-for="(list,index) in subData.categoryList"
+              @click="searchgoods(list)">
                 <img :src="list.img" :alt="list.name" class="category-img">
                 <span class="category-item-name">
                 水果            </span>
