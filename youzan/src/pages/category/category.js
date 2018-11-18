@@ -3,13 +3,12 @@ import './category.css'
 
 import Vue from 'vue'
 import axios from 'axios'
-import foot from 'components/foot.vue'
+//import foot from 'components/foot.vue'
+import mixin from 'js/mixin.js'
 import url from 'js/api.js'
 new Vue({
     el:'#app',
-    components:{
-        foot
-    },
+    
     data:{
         toplists:null,
         topindex:0,
@@ -55,11 +54,6 @@ new Vue({
             location.href=`search.html?id=${list.id}&keyword=${list.name}`
          }
     },
-    filters: {
-      setPrice(val){
-          val=Number(val)
-            return val.toFixed(2)
-      }  
-    }
+    mixins:[mixin]
   
 })

@@ -8,8 +8,8 @@ import url from 'js/api.js'
 import { InfiniteScroll } from 'mint-ui';
 
 Vue.use(InfiniteScroll);
-import foot from 'components/foot.vue'
-import swiper from 'components/swip.vue'
+import mixin from 'js/mixin.js'
+// import swiper from 'components/swip.vue'
 
 new Vue({
     el:'#app',
@@ -21,10 +21,9 @@ new Vue({
         allloaded:false,
         bannerlists:null
     },
-    components:{
-        foot,
-        swiper
-    },
+    // components:{
+    //     swiper
+    // },
     created(){
         this.getlists()
         this.getbanner()
@@ -50,6 +49,7 @@ new Vue({
                 }
                 this.loading=false
                 this.pageNum++
+                console.log(this.pageNum,this.pageSize)
             })
         },
         getbanner(){
@@ -58,6 +58,8 @@ new Vue({
             }).catch(err=>{
                 console.log(err)
             })
-        }
-    }
+        },
+        
+    },
+    mixins: [mixin]
 })
