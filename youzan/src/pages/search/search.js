@@ -38,9 +38,7 @@ new Vue({
                     pageSize:this.pageSize,         
                 }
             }).then(res=>{      
-                console.log(this.pageSize,this.pageNum)
                 let currentLists=res.data.lists   
-                console.log(currentLists.length)
                 if(currentLists.length<this.pageSize ){
                     this.isAllloaded=true
                 }
@@ -58,7 +56,6 @@ new Vue({
             })
         },
         move(){
-            console.log(document.documentElement.scrollTop,'111111111111')
 
             if(document.documentElement.scrollTop>60){
                 this.isShow=true
