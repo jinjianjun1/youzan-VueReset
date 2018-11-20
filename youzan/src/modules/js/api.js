@@ -6,7 +6,8 @@ let url ={
     sublist:'/category/subList',
     searchlist:'/search/list',
     details:'/goods/details',
-    deal:'/goods/deal'
+    deal:'/goods/deal',
+    add:'/cart/add',
 }
 //开发环境和真实环境切换
 let host = 'http://rap2api.taobao.org/app/mock/7058'
