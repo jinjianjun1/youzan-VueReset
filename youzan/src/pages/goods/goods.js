@@ -17,7 +17,8 @@ new Vue({
         goodslist:null,
         detailTab,
         currentIndex:0,
-        deallist:null
+        deallist:null,
+        bannerlists:null
     },
     created(){
         this.getlists()
@@ -28,7 +29,15 @@ new Vue({
             }).then(res=>{
                 //console.log(res)
                 this.goodslist=res.data.data
-                this.goodslist.skuList
+                this.bannerlists=[]
+                console.log(this.goodslist.imgs)
+                this.goodslist.imgs.forEach(item => {
+                    this.bannerlists.push({
+                        clickUrl:'',
+                        img:item
+                    })
+                });
+                console.log(this.bannerlists)
             })
         },
         setActive(id){

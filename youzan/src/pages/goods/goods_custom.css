@@ -1996,7 +1996,8 @@
     -webkit-backface-visibility: hidden;
     -moz-backface-visibility: hidden;
     backface-visibility: hidden;
-    z-index: 1
+    z-index: 1;
+    height: 375px;
   }
   
   .swiper-wrapper {

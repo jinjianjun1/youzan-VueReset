@@ -29,8 +29,7 @@
       <div class="container wap-goods internal-purchase" style="min-height: 617px;">
         <div class="content no-sidebar">
           <div class="content-body">
-
-            <!-- <script id="resize-img-script-used"></script> -->
+              <swiper :lists="bannerlists" name="swip.vue" v-if="bannerlists"></swiper>
             <div class="goods-header">
               <h2 class="title">{{goodslist.title}}</h2>
               <span class="hide js-add-wish js-wish-animate wish-add  font-size-12 tag tag-redf30 pull-right">
