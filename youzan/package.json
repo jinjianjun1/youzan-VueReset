@@ -12,6 +12,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "mint-ui": "^2.2.13",
+    "npm": "^6.4.1",
     "qs": "^6.5.2",
     "swiper": "^4.4.2",
     "velocity-animate": "^1.5.2",
