@@ -163,18 +163,42 @@ new Vue({
 
     },
     removeConfirm() {
-      let {shop,shopIndex, good, goodIndex} = this.removeData
-      axios.post(url.remove, {
-        id: good.id
-      }).then(res => {
-        shop.goodsList.splice(goodIndex, 1)
-        if (!shop.goodsList.length) {
-        this.lists.splice(shopIndex,1)
-        this.removeShop()
-        }
-        this.removePopup = false
-
-      })
+      if(this.removeMsg==='确定要删除该商品吗？'){
+        let {shop,shopIndex, good, goodIndex} = this.removeData
+        axios.post(url.remove, {
+          id: good.id
+        }).then(res => {
+          shop.goodsList.splice(goodIndex, 1)
+          if (!shop.goodsList.length) {
+          this.lists.splice(shopIndex,1)
+          this.removeShop()
+          }
+          this.removePopup = false
+        })
+      }else{
+        let ids=[]
+        this.removeList.forEach(good=>{
+          ids.push(good.id)
+        })
+        axios.post(url.meremove,{ids}).then(res=>{
+          let arr=[]
+          this.editingShop.goodsList.forEach(good=>{
+            let index =this.removeList.findIndex(item=>{
+              return item.id==good.id//判断商品是否在删除列表里面
+            })
+            if(index===-1){//如果不在就赋值给一个空数组里,之后可直接将该数组赋值给删除列表
+              arr.push(good)
+            }
+          })
+          if(arr.length){
+            this.editingShop.goodsList=arr
+          }else{
+            this.lists.splice(this.editingShopIndex,1)
+            this.removeShop()
+          }
+          this.removePopup=false
+        })
+      }
     },
     removeShop(){
       this.editingShop=null  //退出编辑状态
@@ -183,6 +207,12 @@ new Vue({
         shop.editing=false
         shop.editingMsg='编辑'
       })
+    },
+    start(e,good){
+
+    },
+    end(e,shopIndex,good,goodIndex){
+
     }
   },
   mixins: [mixin]

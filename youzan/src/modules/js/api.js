@@ -11,7 +11,7 @@ let url ={
     cartlist:'/cart/list',
     reduce:'/cart/reduce',
     remove:'/cart/remove',
-    meremove:'/cart/mremove'
+    meremove:'/cart/mrremove'
 }
 //开发环境和真实环境切换
 let host = 'http://rap2api.taobao.org/app/mock/7058'

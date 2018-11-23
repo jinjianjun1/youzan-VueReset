@@ -48,7 +48,10 @@
               <!---->
               <div>
                 <ul class="js-list block block-list block-list-cart border-0">
-                  <li class="block-item block-item-cart " v-for="(good,goodIndex) in shop.goodsList" :class="{editing:shop.editing}">
+                  <li class="block-item block-item-cart " 
+                  @touchstart="start($event,good)"
+                  @touchend="end($event,shopIndex,good,goodIndex)"
+                  v-for="(good,goodIndex) in shop.goodsList" :class="{editing:shop.editing}">
                     <div>
                       <div class="check-container" @click="chosePick(shop,good)">
                         <span class="check" :class={checked:editingShop?good.removeChecked:good.checked}></span>
@@ -151,7 +154,7 @@
                 结算 (3)
               </button>
               <!-- 编辑状态 h5.youzan.com/v2/trade/cart?f_platform=yzapp&source-->
-              <button href="javascript:;" :disabled="!removeList.length" class="j-delete-goods btn font-size-14 btn-red"
+              <button href="javascript:;" @click="removeConfirm" :disabled="!removeList.length" class="j-delete-goods btn font-size-14 btn-red"
                 v-show="editingShop">删除
               </button>
             </div>
