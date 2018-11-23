@@ -18,10 +18,11 @@
   <link rel="stylesheet" href="./css/cart.css"> -->
 </head>
 <style>
-[v-cloak]{
+  [v-cloak]{
   display: none;
 }
 </style>
+
 <body class=" body-fixed-bottom" style="">
   <div class="container " style="min-height: 581px;">
     <div class="content clearfix js-page-content">
@@ -33,8 +34,9 @@
           <div class="js-shop-list shop-list">
             <div class="block block-order block-cart" v-for="(shop,shopIndex) in lists">
               <div class="header">
-                <div class="select-group js-select-group" @click="choseShop(shop)" >
-                  <span class="check  " :class="{checked:shop.checked}"></span>
+                <div class="select-group js-select-group" @click="choseShop(shop)">
+                  <span class="check  " :class="{checked:shop.checked}" v-show="!editingShop"></span>
+                  <span class="check  " :class="{checked:shop.removeChecked}" v-show="editingShop"></span>
                 </div> <a class="shop-title">
                   <i class="custom-store-img">店铺：</i>
                   {{shop.shopTitle}}</a>
@@ -46,17 +48,19 @@
               <!---->
               <div>
                 <ul class="js-list block block-list block-list-cart border-0">
-                  <li class="block-item block-item-cart " 
-                  v-for="(good,goodIndex) in shop.goodsList" 
-                  :class="{editing:shop.editing}">
+                  <li class="block-item block-item-cart " v-for="(good,goodIndex) in shop.goodsList" :class="{editing:shop.editing}">
                     <div>
-                      <div class="check-container"  @click="chosePick(shop,good)"><span class="check"  :class={checked:good.checked}></span></div>
+                      <div class="check-container" @click="chosePick(shop,good)">
+                        <span class="check" :class={checked:editingShop?good.removeChecked:good.checked}></span>
+                      </div>
                       <div class="name-card clearfix">
                         <a :href="'goods.html?id='+good.id" class="thumb js-goods-link"><img :src="good.img">
                           <!---->
                         </a>
-                        <div class="detail"><a class="js-goods-link"><h3 class="title js-ellipsis"><i>{{good.title}}</i></h3></a>
-                          <p class="sku ellipsis" >
+                        <div class="detail"><a class="js-goods-link">
+                            <h3 class="title js-ellipsis"><i>{{good.title}}</i></h3>
+                          </a>
+                          <p class="sku ellipsis">
                             {{good.sku}}
                           </p>
                           <!-- 显示状态 -->
@@ -68,11 +72,11 @@
                           <div class="num" v-show="shop.editing">
                             <!---->
                             <div class="quantity">
-                              <button type="button" class="minus disabled"></button>
-                              <input type="text" pattern="[0-9]*" class="txt" v-model="good.number" >
+                              <button type="button" class="minus" :class="{disabled:good.number===1}"></button>
+                              <input type="text" pattern="[0-9]*" class="txt" v-model="good.number">
                               <button type="button" class="plus "></button>
-                              <div class="response-area response-area-minus"></div>
-                              <div class="response-area response-area-plus"></div>
+                              <div class="response-area response-area-minus" @click="reduce(good)"></div>
+                              <div class="response-area response-area-plus" @click="add(good)"></div>
                             </div>
                           </div>
                           <div class="price c-orange">
@@ -80,14 +84,14 @@
                         </div>
                         <div class="error-box"></div>
                       </div>
-                      <div class="delete-btn"><span>删除</span></div>
+                      <div class="delete-btn" @click="remove(shop,shopIndex,good,goodIndex)"><span>删除</span></div>
                     </div>
                   </li>
-                 
+
                 </ul>
               </div>
             </div>
-          
+
           </div>
           <div class="js-invalid-goods shop-list">
             <p class="block invalid-list-title">
@@ -99,10 +103,15 @@
                   <div index="0">
                     <div class="check-container hide"><span class="check"></span></div>
                     <div class="name-card clearfix">
-                      <a href="https://h5.youzan.com/v2/showcase/goods?alias=36co1k2m80lmu" class="thumb js-goods-link"><img data-src="https://img.yzcdn.cn/upload_files/2017/06/29/FstNOp77JZHQjZIDFd5LlZYE3j_j.jpg!200x200.jpg" class="js-lazy" src="https://img.yzcdn.cn/upload_files/2017/06/29/FstNOp77JZHQjZIDFd5LlZYE3j_j.jpg?imageView2/2/w/200/h/200/q/75/format/webp">
+                      <a href="https://h5.youzan.com/v2/showcase/goods?alias=36co1k2m80lmu" class="thumb js-goods-link"><img
+                          data-src="https://img.yzcdn.cn/upload_files/2017/06/29/FstNOp77JZHQjZIDFd5LlZYE3j_j.jpg!200x200.jpg"
+                          class="js-lazy" src="https://img.yzcdn.cn/upload_files/2017/06/29/FstNOp77JZHQjZIDFd5LlZYE3j_j.jpg?imageView2/2/w/200/h/200/q/75/format/webp">
                         <!---->
                       </a>
-                      <div class="detail"><a href="https://h5.youzan.com/v2/showcase/goods?alias=36co1k2m80lmu" class="js-goods-link"><h3 class="title js-ellipsis"><i>国际安徒生奖大奖书系（文学作品系列第二辑 共8册） 国际安徒生奖获奖书系 是经过IBBY各国分会和丛书主编、著名儿童文学理论家方卫平教授层层筛选产生的经典佳作</i></h3></a>
+                      <div class="detail"><a href="https://h5.youzan.com/v2/showcase/goods?alias=36co1k2m80lmu" class="js-goods-link">
+                          <h3 class="title js-ellipsis"><i>国际安徒生奖大奖书系（文学作品系列第二辑 共8册） 国际安徒生奖获奖书系
+                              是经过IBBY各国分会和丛书主编、著名儿童文学理论家方卫平教授层层筛选产生的经典佳作</i></h3>
+                        </a>
                         <p class="sku ellipsis">
                           下周二发货
                         </p>
@@ -128,35 +137,45 @@
               你需要分开结算每个店铺的商品哦~
             </div>
             <div class="bottom-cart clear-fix">
-              <div class="select-all"><span class="check " 
-                :class="{checked:allSelected}"
-                @click="choseAll"></span> 全选
+              <div class="select-all"><span class="check " :class="{checked:editingShop?allRemveSelect:allSelected}"
+                  @click="choseAll"></span> 全选
               </div>
               <!-- 显示状态 -->
-              <div class="total-price" >
-                合计：¥<span class="js-total-price" 
-                v-show="!editingShop"
-                :class="sekectList" style="color: rgb(255, 102, 0);">{{total |setPrice }}</span>
+              <div class="total-price">
+                合计：¥<span class="js-total-price" v-show="!editingShop" :class="selectList" style="color: rgb(255, 102, 0);">{{total
+                  |setPrice }}</span>
                 <p class="c-gray-dark">不含运费</p>
               </div>
-              <button href="javascript:;" v-show="!editingShop"
-              class="js-go-pay btn btn-orange-dark font-size-14" :disabled="!selectList.length">
+              <button href="javascript:;" v-show="!editingShop" class="js-go-pay btn btn-orange-dark font-size-14"
+                :disabled="!selectList.length">
                 结算 (3)
               </button>
-              <!-- 编辑状态 -->
-              <button href="javascript:;"  class="j-delete-goods btn font-size-14 btn-red"
-              v-show="editingShop" >删除
-                    </button>
+              <!-- 编辑状态 h5.youzan.com/v2/trade/cart?f_platform=yzapp&source-->
+              <button href="javascript:;" :disabled="!removeList.length" class="j-delete-goods btn font-size-14 btn-red"
+                v-show="editingShop">删除
+              </button>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-  <div class="footer" style="min-height: 86px;">
-    <div class="copyright">
-      <div class="ft-copyright " style="background-image: url(https://img.yzcdn.cn/upload_files/2016/11/15/147918630760182374.png);">
-        <a class="yz-logo" href="https://www.youzan.com/?from_source=support_logo">有赞提供技术支持</a> </div>
+    <div id="hQbRZXkvL0" v-show="removePopup" style="height: 100%; position: fixed; top: 0px; left: 0px; right: 0px; background-color: rgba(0, 0, 0, 0.7); z-index: 1000; opacity: 1; transition: none 0.2s ease 0s;"></div>
+    <div class="van-dialog" style="z-index: 2005;position: fixed;"v-show="removePopup">
+      <div class="van-dialog__content">
+        <div class="van-dialog__message">确定删除该商品么？</div>
+      </div>
+      <div class="van-hairline--top van-dialog__footer van-dialog__footer--buttons">
+        <button class="van-button van-button--default van-button--large van-dialog__cancel"style="background-color:#fff" >
+          <span class="van-button__text">取消</span></button>
+        <button @click="removeConfirm" class="van-button van-button--default van-button--large van-dialog__confirm van-hairline--left"style="background-color:#fff">
+          <span class="van-button__text">确认</span></button></div>
+    </div>
+    <div class="footer" style="min-height: 86px;">
+      <div class="copyright">
+        <div class="ft-copyright " style="background-image: url(https://img.yzcdn.cn/upload_files/2016/11/15/147918630760182374.png);">
+          <a class="yz-logo" href="https://www.youzan.com/?from_source=support_logo">有赞提供技术支持</a> </div>
+      </div>
+
     </div>
   </div>
 </body>
