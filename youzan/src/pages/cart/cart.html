@@ -51,6 +51,7 @@
                   <li class="block-item block-item-cart " 
                   @touchstart="start($event,good)"
                   @touchend="end($event,shopIndex,good,goodIndex)"
+                  :ref="'goods-'+shopIndex+'-'+goodIndex"
                   v-for="(good,goodIndex) in shop.goodsList" :class="{editing:shop.editing}">
                     <div>
                       <div class="check-container" @click="chosePick(shop,good)">
@@ -169,7 +170,7 @@
       </div>
       <div class="van-hairline--top van-dialog__footer van-dialog__footer--buttons">
         <button class="van-button van-button--default van-button--large van-dialog__cancel"style="background-color:#fff" >
-          <span class="van-button__text">取消</span></button>
+          <span @click="removePopup=false" class="van-button__text">取消</span></button>
         <button @click="removeConfirm" class="van-button van-button--default van-button--large van-dialog__confirm van-hairline--left"style="background-color:#fff">
           <span class="van-button__text">确认</span></button></div>
     </div>
