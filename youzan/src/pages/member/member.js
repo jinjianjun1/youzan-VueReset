@@ -14,9 +14,11 @@ let routes=[{
         // component:require('./components/all.vue')
         redirect: 'all'
     },{
+        name:'all',
         path:'all',
         component:require('./components/all.vue')
     },{
+        name:'form',
         path:'form',
         component:require('./components/form.vue')
     }]

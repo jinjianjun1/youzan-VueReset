@@ -32,7 +32,7 @@
           <!---->
           <!---->
           <div class="js-shop-list shop-list">
-            <div class="block block-order block-cart" v-for="(shop,shopIndex) in lists" :key="index">
+            <div class="block block-order block-cart" v-for="(shop,shopIndex) in lists" :key="shop.id">
               <div class="header">
                 <div class="select-group js-select-group" @click="choseShop(shop)">
                   <span class="check  " :class="{checked:shop.checked}" v-show="!editingShop"></span>
