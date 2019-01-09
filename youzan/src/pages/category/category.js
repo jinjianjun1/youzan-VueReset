@@ -23,8 +23,6 @@ new Vue({
         getToplists(){
             axios.get(url.toplist).then(res=>{
                 this.toplists=res.data.lists
-                
-                //console.log(this.toplists)
             }).catch(err=>{
                 throw err
             })

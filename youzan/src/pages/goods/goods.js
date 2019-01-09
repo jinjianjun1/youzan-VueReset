@@ -40,19 +40,17 @@ new Vue({
         //console.log(res)
         this.goodslist = res.data.data
         this.bannerlists = []
-        console.log(this.goodslist.imgs)
         this.goodslist.imgs.forEach(item => {  //将url中的数据改造成对象的格式
           this.bannerlists.push({
             clickUrl: '',
             img: item
           })
         });
-        console.log(this.bannerlists)
       })
     },
     setActive(id) {
       this.currentIndex = id
-      if (this.currentIndex == 1) {
+      if (this.currentIndex === 1) {
         this.getDeal()
       }
 

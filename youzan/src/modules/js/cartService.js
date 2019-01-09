@@ -1,6 +1,6 @@
-import fetch from 'js/fetch.js'
-import url from 'js/api.js'
-import fetchget from 'js/fetchget.js'
+import fetch from '../../modules/js/fetch.js'
+import url from '../../modules/js/api.js'
+import fetchget from '../../modules/js/fetchget.js'
 
 class Cart{
     static add(id){

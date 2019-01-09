@@ -2,13 +2,13 @@ import 'css/common.css'
 import './index.css'
 import  Vue from 'vue'
 import axios from 'axios'
-import url from 'js/api.js'
+import url from '../../modules/js/api.js'
 
 
 import { InfiniteScroll } from 'mint-ui';
 
 Vue.use(InfiniteScroll);
-import mixin from 'js/mixin.js'
+import mixin from '../../modules/js/mixin.js'
 // import swiper from 'components/swip.vue'
 
 new Vue({
@@ -25,20 +25,20 @@ new Vue({
     //     swiper
     // },
     created(){
-        this.getlists()
+        this.getlists();
         this.getbanner()
     },
     methods:{
         getlists(){
-            if(this.allloaded==true) return
-            this.loading=true
+            if(this.allloaded===true) return;
+            this.loading=true;
             axios.get(url.hotLists,{
                 params:{
                     pageNum:this.pageNum,
                     pageSize:this.pageSize
                 }
             }).then(res=>{
-                let currentlist =res.data.lists
+                let currentlist =res.data.lists;
                 if(currentlist.length<this.pageSize){
                     this.allloaded=true
                 }
@@ -47,9 +47,8 @@ new Vue({
                 }else{
                     this.lists=currentlist
                 }
-                this.loading=false
+                this.loading=false;
                 this.pageNum++
-                console.log(this.pageNum,this.pageSize)
             })
         },
         getbanner(){
@@ -62,4 +61,4 @@ new Vue({
         
     },
     mixins: [mixin]
-})
+});
